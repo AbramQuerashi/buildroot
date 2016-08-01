@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+make qemu_x86_64_defconfig
+echo 'BR2_PACKAGE_HELLO=y' >> .config
+make BR2_JLEVEL=2
+qemu-system-x86_64 -M pc -kernel output/images/bzImage -drive file=output/images/rootfs.ext2,if=virtio,format=raw -append root=/dev/vda -net nic,model=virtio -net user
