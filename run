@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -e
+unset LD_LIBRARY_PATH
+make qemu_x86_64_defconfig
+printf "
+# Key options.
+BR2_PACKAGE_HELLO=y
+BR2_PACKAGE_LIBDRM=y
+BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES=\"kernel_config_fragment\"
+
+# Less key.
+BR2_CCACHE=y
+BR2_PACKAGE_HOST_QEMU=y
+BR2_PACKAGE_HOST_QEMU_LINUX_USER_MODE=n
+BR2_PACKAGE_HOST_QEMU_SYSTEM_MODE=y
+BR2_PACKAGE_HOST_QEMU_VDE2=y
+" >> .config
+make olddefconfig
+time make BR2_JLEVEL="$(nproc)" HOST_QEMU_OPTS='--enable-sdl --with-sdlabi=2.0' hello-reconfigure linux-reconfigure all
+./output/host/usr/bin/qemu-system-x86_64 -M pc -kernel output/images/bzImage -drive file=output/images/rootfs.ext2,if=virtio,format=raw -append root=/dev/vda -net nic,model=virtio -net user -device virtio-gpu-pci "$@"

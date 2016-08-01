@@ -1,0 +1,7 @@
+# All archs.
+CONFIG_DRM=y
+CONFIG_DRM_VIRTIO_GPU=y
+
+# TODO not enough for aarch64 to have /dev/dri/ what else do we need?
+CONFIG_PCI=y
+CONFIG_VIRTIO_PCI=y
