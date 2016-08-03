@@ -1,26 +1,21 @@
-Buildroot is a simple, efficient and easy-to-use tool to generate embedded
-Linux systems through cross-compilation.
+This branch shows how to compile and run a kernel module inside QEMU.
 
-The documentation can be found in docs/manual. You can generate a text
-document with 'make manual-text' and read output/docs/manual/manual.text.
-Online documentation can be found at http://buildroot.org/docs.html
+https://stackoverflow.com/questions/32124246/build-run-linux-kernel-module-on-qemu/38813400#38813400
 
-To build and use the buildroot stuff, do the following:
+Usage:
 
-1) run 'make menuconfig'
-2) select the target architecture and the packages you wish to compile
-3) run 'make'
-4) wait while it compiles
-5) find the kernel, bootloader, root filesystem, etc. in output/images
+    make qemu_x86_64_defconfig
+    echo 'BR2_PACKAGE_KERNEL_MODULE=y' >> .config
+    make BR2_JLEVEL=2
+    qemu-system-x86_64 -M pc -kernel output/images/bzImage -drive file=output/images/rootfs.ext2,if=virtio,format=raw -append root=/dev/vda -net nic,model=virtio -net user
 
-You do not need to be root to build or run buildroot.  Have fun!
+From inside qemu:
 
-Buildroot comes with a basic configuration for a number of boards. Run
-'make list-defconfigs' to view the list of provided configurations.
-
-Please feed suggestions, bug reports, insults, and bribes back to the
-buildroot mailing list: buildroot@buildroot.org
-You can also find us on #buildroot on Freenode IRC.
-
-If you would like to contribute patches, please read
-https://buildroot.org/manual.html#submitting-patches
+    root
+    cd /
+    insmod kernel_module.ko
+    # init_module
+    dmesg | tail -n1
+    rmmod kernel_module.ko
+    # cleanup_module
+    dmesg | tail -n1
