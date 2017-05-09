@@ -16,5 +16,10 @@ define KERNEL_MODULE_INSTALL_TARGET_CMDS
 	$(INSTALL) -D -m 0755 '$(@D)/kernel_module.ko' '$(TARGET_DIR)/kernel_module.ko'
 endef
 
+define KERNEL_MODULE_INSTALL_INIT_SYSV
+	$(INSTALL) -D -m 0755 package/kernel_module/S99kernel_module \
+		$(TARGET_DIR)/etc/init.d/S99kernel_module
+endef
+
 $(eval $(kernel-module))
 $(eval $(generic-package))

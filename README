@@ -1,6 +1,7 @@
 This branch shows how to compile and run a kernel module inside QEMU.
 
-https://stackoverflow.com/questions/32124246/build-run-linux-kernel-module-on-qemu/38813400#38813400
+- http://stackoverflow.com/questions/40307328/how-to-add-linux-driver-as-a-buildroot-package/43874273#43874273
+- https://stackoverflow.com/questions/32124246/build-run-linux-kernel-module-on-qemu/38813400#38813400
 
 Usage:
 
@@ -9,13 +10,15 @@ Usage:
     make BR2_JLEVEL=2
     qemu-system-x86_64 -M pc -kernel output/images/bzImage -drive file=output/images/rootfs.ext2,if=virtio,format=raw -append root=/dev/vda -net nic,model=virtio -net user
 
-From inside qemu:
+The module is insterted automatically by our init script. Inside Qemu:
 
-    root
-    cd /
-    insmod kernel_module.ko
+    lsmod
+    # kernel_module
+    dmesg | grep init_module
     # init_module
-    dmesg | tail -n1
     rmmod kernel_module.ko
     # cleanup_module
-    dmesg | tail -n1
+    dmesg | grep cleanup_module
+    # cleanup_module
+
+Maybe there is a fancier way to insmod at startup with `/etc/modules.conf`? But this works fine for now.
