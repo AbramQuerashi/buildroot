@@ -2,11 +2,7 @@ This branch shows how to include a package outside of the buildroot tree.
 
 Usage:
 
-    mv hello ../
-    make qemu_x86_64_defconfig
-    echo 'BR2_PACKAGE_HELLO=y' >> .config
-    make BR2_JLEVEL=2
-    qemu-system-x86_64 -M pc -kernel output/images/bzImage -drive file=output/images/rootfs.ext2,if=virtio,format=raw -append root=/dev/vda -net nic,model=virtio -net user
+    ./run
 
 From inside qemu:
 
@@ -15,12 +11,6 @@ From inside qemu:
 Expected output:
 
     hello
-
-In this example, `hello` must be placed at a fixed location, as we have hardcoded the relative path from the buildroot root to the `src/` directory in `hello/external.mk`:
-
-    HELLO_SITE = ../hello/src
-
-The source could of course be placed anywhere else, including outside `hello/`, you just have to modify `exteral.mk`.
 
 This setup is intended to simulate a possible use case where you have a buildroot submodule and a hello package on the main git repository:
 
