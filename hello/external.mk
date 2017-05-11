@@ -5,7 +5,7 @@
 ################################################################################
 
 HELLO_VERSION = 1.0
-HELLO_SITE = ../hello/src
+HELLO_SITE = $(BR2_EXTERNAL_HELLO_PATH)/src
 HELLO_SITE_METHOD = local
 
 define HELLO_BUILD_CMDS
