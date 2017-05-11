@@ -18,6 +18,14 @@ This setup is intended to simulate a possible use case where you have a buildroo
     buildroot   # Submodule.
     hello       # Package.
 
+Note that "hello/package/hello" is *almost* a regular unmodified in-tree package, except for the line:
+
+    HELLO_SITE = $(BR2_EXTERNAL_HELLO_PATH)/package/hello/src
+
+which for a regular in-tree package becomes:
+
+    HELLO_SITE = ./package/hello/src
+
 If you want to remove an out of tree package from the build, you will need:
 
     rm output/.br-external

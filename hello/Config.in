@@ -1,6 +1,1 @@
-config BR2_PACKAGE_HELLO
-	bool "hello"
-	help
-	  Minimal external build hello.
-
-	  http://example.com/
+source "$BR2_EXTERNAL_HELLO_PATH/package/hello/Config.in"
