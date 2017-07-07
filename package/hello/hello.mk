@@ -4,9 +4,8 @@
 #
 ################################################################################
 
-HELLO_VERSION = 1.0
-HELLO_SITE = ./package/hello/src
-HELLO_SITE_METHOD = local
+HELLO_VERSION = branch2
+HELLO_SITE = git://github.com/cirosantilli/hello-c.git
 
 define HELLO_BUILD_CMDS
     $(MAKE) CC="$(TARGET_CC)" LD="$(TARGET_LD)" -C $(@D)
