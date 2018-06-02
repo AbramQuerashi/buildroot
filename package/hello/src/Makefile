@@ -1,10 +1,11 @@
-# CFLAGS_EXTRA = $(shell $(PKG_CONFIG) --cflags libdrm)
-# LIBS = $(shell $(PKG_CONFIG) --libs libdrm)
+CXXFLAGS_EXTRA = $(shell $(PKG_CONFIG) --cflags eigen3)
+#CXXFLAGS_EXTRA = -I$(STAGING_DIR)/usr/include/eigen3
+LIBS = $(shell $(PKG_CONFIG) --libs eigen3)
 
 .PHONY: clean
 
-hello: hello.c
-	$(CC) $(CFLAGS) $(CFLAGS_EXTRA) -o '$@' '$<' $(LIBS)
+hello: hello.cpp
+	$(CXX) $(CXXFLAGS) $(CXXFLAGS_EXTRA) -o '$@' '$<' $(LIBS)
 
 clean:
 	rm hello
