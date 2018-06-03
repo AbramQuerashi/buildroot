@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+outdir="${1:-output/qemu_x86_64_defconfig}"
+"${outdir}/host/usr/bin/qemu-system-x86_64" \
+  -M pc \
+  -append 'root=/dev/vda console=ttyS0' \
+  -drive file="${outdir}/images/rootfs.ext2,if=virtio,format=raw" \
+  -enable-kvm \
+  -kernel "${outdir}/images/bzImage" \
+  -m 512 \
+  -net nic,model=virtio \
+  -net user,hostfwd=tcp::2222-:22 \
+  -serial mon:stdio \
+;
