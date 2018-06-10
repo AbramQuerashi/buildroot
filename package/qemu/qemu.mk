@@ -95,7 +95,6 @@ define QEMU_CONFIGURE_CMDS
 		./configure \
 			--prefix=/usr \
 			--cross-prefix=$(TARGET_CROSS) \
-			--with-system-pixman \
 			--audio-drv-list= \
 			--enable-kvm \
 			--enable-attr \
