@@ -53,7 +53,6 @@ ld/
 (cherry picked from commit 241e64e3b42cd9eba514b8e0ad2ef39a337f10a5)
 Signed-off-by: Norbert Lange <nolange79@gmail.com>
 ---
- bfd/ChangeLog                                |  8 ++++
  bfd/elfxx-x86.c                              | 60 +++++++++++++++++++-------
  ld/ChangeLog                                 | 24 +++++++++++
  ld/testsuite/ld-elf/linux-x86.S              | 63 ++++++++++++++++++++++++++++
@@ -78,22 +77,6 @@ Signed-off-by: Norbert Lange <nolange79@gmail.com>
  create mode 100644 ld/testsuite/ld-elf/linux-x86.exp
  create mode 100644 ld/testsuite/ld-elf/pr23428.c
 
-diff --git a/bfd/ChangeLog b/bfd/ChangeLog
-index 1c1174a..d3831b7 100644
---- a/bfd/ChangeLog
-+++ b/bfd/ChangeLog
-@@ -1,3 +1,11 @@
-+2018-07-23  H.J. Lu  <hongjiu.lu@intel.com>
-+
-+	PR ld/23428
-+	* elfxx-x86.c (_bfd_x86_elf_link_setup_gnu_properties): If the
-+	separate code program header is needed, make sure that the first
-+	read-only PT_LOAD segment has no code by adding a
-+	GNU_PROPERTY_X86_ISA_1_USED note.
-+
- 2018-07-18  Nick Clifton  <nickc@redhat.com>
-
- 	* development.sh: Set to true.
 diff --git a/bfd/elfxx-x86.c b/bfd/elfxx-x86.c
 index a2497aa..2e4ff88 100644
 --- a/bfd/elfxx-x86.c
